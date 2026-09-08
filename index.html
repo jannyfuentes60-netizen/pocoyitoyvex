@@ -1,486 +1,489 @@
 <!DOCTYPE html>
-    <html lang="es">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Pocoyito Studios & Vex Studios - Audio Bypass</title>
-        <style>
-                <!-- CONFIGURACIÓN DE DISCORD / OPEN GRAPH -->
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pocoyito & Vex Studios | Audio Bypass Roblox</title>
+
+    <!-- Metaetiquetas Open Graph para Discord Preview -->
     <meta property="og:title" content="Pocoyito & Vex Studios | Audio Bypass Roblox">
     <meta property="og:description" content="¡Pasa tus rolas a Roblox sin que te las tiren! 100% antiban y rápido como el rayo. Caile al server de Discord.">
     <meta property="og:image" content="https://static.wikia.nocookie.net/roblox/images/6/66/Audio_Icon_2024.png/revision/latest?cb=20240321100249">
-    <meta property="og:url" content="https://TU-LINK-DE-VERCEL.vercel.app">
+    <meta property="og:url" content="https://pocoyitoyvex.vercel.app">
     <meta name="theme-color" content="#00d4ff">
 
+    <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="Pocoyito & Vex Studios | Audio Bypass Roblox">
     <meta name="twitter:description" content="¡Pasa tus rolas a Roblox sin que te las tiren! 100% antiban y rápido como el rayo.">
     <meta name="twitter:image" content="https://static.wikia.nocookie.net/roblox/images/6/66/Audio_Icon_2024.png/revision/latest?cb=20240321100249">
-            
-            :root {
-                --pocoyo-blue: #0084ff;
-                --pocoyo-glow: #00d4ff;
-                --bg-dark: #020610;
-                --glass-bg: rgba(255, 255, 255, 0.03);
-                --glass-card: rgba(10, 20, 38, 0.5);
-                --glass-border: rgba(0, 212, 255, 0.15);
-            }
 
-            * {
-                box-sizing: border-box;
-                margin: 0;
-                padding: 0;
-                user-select: none;
-            }
+    <style>
+        :root {
+            --pocoyo-blue: #0084ff;
+            --pocoyo-glow: #00d4ff;
+            --bg-dark: #020610;
+            --glass-bg: rgba(255, 255, 255, 0.03);
+            --glass-card: rgba(10, 20, 38, 0.5);
+            --glass-border: rgba(0, 212, 255, 0.15);
+        }
 
-            body {
-                font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Helvetica Neue", Helvetica, Arial, sans-serif;
-                background-color: var(--bg-dark);
-                color: #ffffff;
-                min-height: 100vh;
-                display: flex;
-                flex-direction: column;
-                align-items: center;
-                padding: 15px;
-                overflow-x: hidden;
-                position: relative;
-            }
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            user-select: none;
+        }
 
-            /* Canvas para Partículas y Rastro Táctil */
-            #canvas-bg {
-                position: fixed;
-                top: 0;
-                left: 0;
-                width: 100%;
-                height: 100%;
-                z-index: 0;
-                pointer-events: none;
-            }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Helvetica Neue", Helvetica, Arial, sans-serif;
+            background-color: var(--bg-dark);
+            color: #ffffff;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 15px;
+            overflow-x: hidden;
+            position: relative;
+        }
 
-            .container {
-                max-width: 600px;
-                width: 100%;
-                z-index: 1;
-                display: flex;
-                flex-direction: column;
-                gap: 20px;
-                padding-bottom: 40px;
-            }
+        /* Canvas para Partículas y Rastro Táctil */
+        #canvas-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            pointer-events: none;
+        }
 
-            /* Header Superior Liquid Glass */
-            header {
-                display: flex;
-                justify-content: space-between;
-                align-items: center;
-                background: rgba(8, 15, 30, 0.6);
-                backdrop-filter: blur(20px);
-                -webkit-backdrop-filter: blur(20px);
-                border: 1px solid var(--glass-border);
-                padding: 12px 20px;
-                border-radius: 100px;
-                width: 100%;
-                box-shadow: 0 10px 30px rgba(0,0,0,0.8);
-            }
+        .container {
+            max-width: 600px;
+            width: 100%;
+            z-index: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            padding-bottom: 40px;
+        }
 
-            .brand {
-                display: flex;
-                align-items: center;
-                gap: 10px;
-                font-weight: 800;
-                font-size: 1.05rem;
-                letter-spacing: -0.5px;
-            }
+        /* Header Superior Liquid Glass */
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: rgba(8, 15, 30, 0.6);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border);
+            padding: 12px 20px;
+            border-radius: 100px;
+            width: 100%;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.8);
+        }
 
-            .brand-icon {
-                width: 32px;
-                height: 32px;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-            }
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: 800;
+            font-size: 1.05rem;
+            letter-spacing: -0.5px;
+        }
 
-            .brand-icon img {
-                width: 100%;
-                height: 100%;
-                object-fit: contain;
-                filter: drop-shadow(0 0 8px rgba(0, 212, 255, 0.8));
-            }
+        .brand-icon {
+            width: 32px;
+            height: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: transparent !important;
+        }
 
-            .btn-nav-discord {
-                background: #ffffff;
-                color: #000000;
-                padding: 8px 16px;
-                border-radius: 100px;
-                text-decoration: none;
-                font-weight: 800;
-                font-size: 0.85rem;
-                display: flex;
-                align-items: center;
-                gap: 8px;
-                transition: all 0.2s;
-            }
+        .brand-icon img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            filter: drop-shadow(0 0 8px rgba(0, 212, 255, 0.8));
+        }
 
-            .btn-nav-discord:hover {
-                transform: scale(1.05);
-                box-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
-            }
+        .btn-nav-discord {
+            background: #ffffff;
+            color: #000000;
+            padding: 8px 16px;
+            border-radius: 100px;
+            text-decoration: none;
+            font-weight: 800;
+            font-size: 0.85rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.2s;
+        }
 
-            /* Hero Card Ultra Liquid Glass */
-            .hero-card {
-                background: linear-gradient(135deg, rgba(0, 132, 255, 0.08) 0%, rgba(5, 12, 24, 0.7) 100%);
-                backdrop-filter: blur(25px);
-                -webkit-backdrop-filter: blur(25px);
-                border: 1px solid rgba(0, 212, 255, 0.2);
-                border-radius: 28px;
-                padding: 30px 20px;
-                text-align: center;
-                box-shadow: 0 20px 50px rgba(0, 0, 0, 0.9), inset 0 1px 0 rgba(255, 255, 255, 0.1);
-            }
+        .btn-nav-discord:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
+        }
 
-            /* Ícono Gigante sin círculo de relleno */
-            .hero-icon-large {
-                width: 110px;
-                height: 110px;
-                margin: 0 auto 10px auto;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-            }
+        /* Hero Card Ultra Liquid Glass */
+        .hero-card {
+            background: linear-gradient(135deg, rgba(0, 132, 255, 0.08) 0%, rgba(5, 12, 24, 0.7) 100%);
+            backdrop-filter: blur(25px);
+            -webkit-backdrop-filter: blur(25px);
+            border: 1px solid rgba(0, 212, 255, 0.2);
+            border-radius: 28px;
+            padding: 30px 20px;
+            text-align: center;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.9), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+        }
 
-            .hero-icon-large img {
-                width: 100%;
-                height: 100%;
-                object-fit: contain;
-                filter: drop-shadow(0 0 25px rgba(0, 212, 255, 0.8));
-            }
+        /* Ícono Gigante totalmente limpio y sin fondo */
+        .hero-icon-large {
+            width: 110px;
+            height: 110px;
+            margin: 0 auto 10px auto;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: transparent !important;
+        }
 
-            .hero-title {
-                font-size: 1.8rem;
-                font-weight: 900;
-                letter-spacing: -0.5px;
-                margin-bottom: 5px;
-                text-transform: uppercase;
-                background: linear-gradient(180deg, #ffffff 0%, #a5c7f3 100%);
-                -webkit-background-clip: text;
-                -webkit-text-fill-color: transparent;
-            }
+        .hero-icon-large img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            filter: drop-shadow(0 0 25px rgba(0, 212, 255, 0.8));
+        }
 
-            .hero-subtitle {
-                font-size: 0.85rem;
-                color: #72a8ff;
-                font-weight: 700;
-                letter-spacing: 2px;
-                margin-bottom: 15px;
-            }
+        .hero-title {
+            font-size: 1.8rem;
+            font-weight: 900;
+            letter-spacing: -0.5px;
+            margin-bottom: 5px;
+            text-transform: uppercase;
+            background: linear-gradient(180deg, #ffffff 0%, #a5c7f3 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
 
-            .pills-group {
-                display: flex;
-                justify-content: center;
-                gap: 8px;
-                flex-wrap: wrap;
-            }
+        .hero-subtitle {
+            font-size: 0.85rem;
+            color: #72a8ff;
+            font-weight: 700;
+            letter-spacing: 2px;
+            margin-bottom: 15px;
+        }
 
-            .pill {
-                background: rgba(0, 0, 0, 0.6);
-                border: 1px solid rgba(0, 212, 255, 0.2);
-                padding: 6px 14px;
-                border-radius: 100px;
-                font-size: 0.75rem;
-                font-weight: 700;
-                color: #b0d8ff;
-            }
+        .pills-group {
+            display: flex;
+            justify-content: center;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
 
-            /* Badge de Estado */
-            .status-badge {
-                align-self: center;
-                background: rgba(0, 255, 136, 0.05);
-                border: 1px solid rgba(0, 255, 136, 0.25);
-                color: #00ff88;
-                padding: 6px 18px;
-                border-radius: 100px;
-                font-size: 0.8rem;
-                font-weight: 700;
-                display: flex;
-                align-items: center;
-                gap: 8px;
-                box-shadow: 0 0 15px rgba(0, 255, 136, 0.1);
-            }
+        .pill {
+            background: rgba(0, 0, 0, 0.6);
+            border: 1px solid rgba(0, 212, 255, 0.2);
+            padding: 6px 14px;
+            border-radius: 100px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            color: #b0d8ff;
+        }
 
-            .status-dot {
-                width: 8px;
-                height: 8px;
-                background-color: #00ff88;
-                border-radius: 50%;
-                box-shadow: 0 0 10px #00ff88;
-                animation: pulse 1.5s infinite;
-            }
+        /* Badge de Estado */
+        .status-badge {
+            align-self: center;
+            background: rgba(0, 255, 136, 0.05);
+            border: 1px solid rgba(0, 255, 136, 0.25);
+            color: #00ff88;
+            padding: 6px 18px;
+            border-radius: 100px;
+            font-size: 0.8rem;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            box-shadow: 0 0 15px rgba(0, 255, 136, 0.1);
+        }
 
-            @keyframes pulse {
-                0% { opacity: 1; transform: scale(1); }
-                50% { opacity: 0.3; transform: scale(1.3); }
-                100% { opacity: 1; transform: scale(1); }
-            }
+        .status-dot {
+            width: 8px;
+            height: 8px;
+            background-color: #00ff88;
+            border-radius: 50%;
+            box-shadow: 0 0 10px #00ff88;
+            animation: pulse 1.5s infinite;
+        }
 
-            /* Sección Principal */
-            .main-headline {
-                font-size: 1.8rem;
-                font-weight: 800;
-                text-align: center;
-                line-height: 1.25;
-                letter-spacing: -0.5px;
-            }
+        @keyframes pulse {
+            0% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.3; transform: scale(1.3); }
+            100% { opacity: 1; transform: scale(1); }
+        }
 
-            .highlight-cmd {
-                background: linear-gradient(90deg, #00d4ff, #0077ff);
-                -webkit-background-clip: text;
-                -webkit-text-fill-color: transparent;
-                text-decoration: underline;
-                text-decoration-color: #00d4ff;
-            }
+        /* Sección Principal */
+        .main-headline {
+            font-size: 1.8rem;
+            font-weight: 800;
+            text-align: center;
+            line-height: 1.25;
+            letter-spacing: -0.5px;
+        }
 
-            .description-text {
-                text-align: center;
-                color: #92b4df;
-                font-size: 0.95rem;
-                line-height: 1.6;
-            }
+        .highlight-cmd {
+            background: linear-gradient(90deg, #00d4ff, #0077ff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-decoration: underline;
+            text-decoration-color: #00d4ff;
+        }
 
-            /* Nombres de Bots */
-            .bot-p1 { color: #2b7fff; font-weight: 800; }
-            .bot-p2 { color: #00d4ff; font-weight: 800; }
-            .bot-vx { color: #00ff88; font-weight: 800; }
-            .bot-jn { color: #ff4d4d; font-weight: 800; }
+        .description-text {
+            text-align: center;
+            color: #92b4df;
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
 
-            .command-box {
-                background: rgba(0, 0, 0, 0.6);
-                border: 1px solid rgba(0, 212, 255, 0.3);
-                border-radius: 10px;
-                padding: 4px 10px;
-                font-family: monospace;
-                font-size: 0.85rem;
-                color: #00d4ff;
-                display: inline-block;
-                margin: 2px 0;
-            }
+        /* Nombres de Bots */
+        .bot-p1 { color: #2b7fff; font-weight: 800; }
+        .bot-p2 { color: #00d4ff; font-weight: 800; }
+        .bot-vx { color: #00ff88; font-weight: 800; }
+        .bot-jn { color: #ff4d4d; font-weight: 800; }
 
-            .extra-info {
-                background: rgba(0, 132, 255, 0.06);
-                backdrop-filter: blur(15px);
-                border: 1px dashed rgba(0, 212, 255, 0.3);
-                border-radius: 18px;
-                padding: 16px;
-                font-size: 0.88rem;
-                color: #c0deff;
-                text-align: center;
-                margin-top: 5px;
-            }
+        .command-box {
+            background: rgba(0, 0, 0, 0.6);
+            border: 1px solid rgba(0, 212, 255, 0.3);
+            border-radius: 10px;
+            padding: 4px 10px;
+            font-family: monospace;
+            font-size: 0.85rem;
+            color: #00d4ff;
+            display: inline-block;
+            margin: 2px 0;
+        }
 
-            /* Botón principal único */
-            .action-buttons {
-                display: flex;
-                flex-direction: column;
-                gap: 12px;
-                width: 100%;
-                margin-top: 10px;
-            }
+        .extra-info {
+            background: rgba(0, 132, 255, 0.06);
+            backdrop-filter: blur(15px);
+            border: 1px dashed rgba(0, 212, 255, 0.3);
+            border-radius: 18px;
+            padding: 16px;
+            font-size: 0.88rem;
+            color: #c0deff;
+            text-align: center;
+            margin-top: 5px;
+        }
 
-            .btn-primary {
-                background: #ffffff;
-                color: #000000;
-                text-decoration: none;
-                padding: 18px;
-                border-radius: 18px;
-                font-weight: 800;
-                font-size: 1.05rem;
-                text-align: center;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                gap: 10px;
-                transition: all 0.2s;
-                box-shadow: 0 10px 30px rgba(255, 255, 255, 0.15);
-            }
+        /* Botón principal único */
+        .action-buttons {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            width: 100%;
+            margin-top: 10px;
+        }
 
-            .btn-primary:hover {
-                transform: translateY(-2px);
-                background: #f0f7ff;
-                box-shadow: 0 12px 35px rgba(0, 212, 255, 0.4);
-            }
+        .btn-primary {
+            background: #ffffff;
+            color: #000000;
+            text-decoration: none;
+            padding: 18px;
+            border-radius: 18px;
+            font-weight: 800;
+            font-size: 1.05rem;
+            text-align: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            transition: all 0.2s;
+            box-shadow: 0 10px 30px rgba(255, 255, 255, 0.15);
+        }
 
-            /* SVG Discord Oficial con Ojos */
-            .discord-svg {
-                width: 22px;
-                height: 22px;
-                fill: currentColor;
-            }
-        </style>
-    </head>
-    <body>
-        <canvas id="canvas-bg"></canvas>
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            background: #f0f7ff;
+            box-shadow: 0 12px 35px rgba(0, 212, 255, 0.4);
+        }
 
-        <div class="container">
-            <!-- Header Superior -->
-            <header>
-                <div class="brand">
-                    <div class="brand-icon">
-                        <img src="https://static.wikia.nocookie.net/roblox/images/6/66/Audio_Icon_2024.png" alt="Audio Icon">
-                    </div>
-                    <span>Pocoyito & Vex</span>
+        /* SVG Discord Oficial */
+        .discord-svg {
+            width: 22px;
+            height: 22px;
+            fill: currentColor;
+        }
+    </style>
+</head>
+<body>
+    <canvas id="canvas-bg"></canvas>
+
+    <div class="container">
+        <!-- Header Superior -->
+        <header>
+            <div class="brand">
+                <div class="brand-icon">
+                    <img src="https://static.wikia.nocookie.net/roblox/images/6/66/Audio_Icon_2024.png" alt="Audio Icon">
                 </div>
-                <a href="https://discord.gg/CP3ZM8AmTt" target="_blank" class="btn-nav-discord">
-                    <svg class="discord-svg" viewBox="0 0 127.14 96.36">
-                        <path d="M107.7,8.07A105.15,105.15,0,0,0,81.47,0a72.06,72.06,0,0,0-3.36,6.83A97.68,97.68,0,0,0,49,6.83,72.37,72.37,0,0,0,45.64,0,105.89,105.89,0,0,0,19.39,8.09C2.79,32.65-1.71,56.6.54,80.21h0A105.73,105.73,0,0,0,32.71,96.36,77.7,77.7,0,0,0,39.6,85.25a68.42,68.42,0,0,1-10.85-5.18c.91-.66,1.8-1.34,2.66-2a73.51,73.51,0,0,0,64.3,0c.87.71,1.76,1.39,2.66,2a68.68,68.68,0,0,1-10.87,5.19,77,77,0,0,0,6.89,11.1,105.25,105.25,0,0,0,32.19-16.14c2.64-27.38-4.51-51.11-18.88-72.15ZM42.45,65.69C36.18,65.69,31,60,31,53s5-12.74,11.43-12.74C48.86,40.23,54,45.92,53.86,53,53.86,60,48.78,65.69,42.45,65.69Zm42.24,0C78.41,65.69,73.25,60,73.25,53s5-12.74,11.44-12.74C91.13,40.23,96.28,45.92,96.14,53,96.14,60,91.06,65.69,84.69,65.69Z"/>
-                    </svg>
-                    Caile al Discord
-                </a>
-            </header>
-
-            <!-- Hero Banner Card -->
-            <div class="hero-card">
-                <div class="hero-icon-large">
-                    <img src="https://static.wikia.nocookie.net/roblox/images/6/66/Audio_Icon_2024.png" alt="Roblox Audio Icon 2024">
-                </div>
-                <h1 class="hero-title">Pocoyito & Vex</h1>
-                <div class="hero-subtitle">STUDIOS BYPASSING</div>
-                <div class="pills-group">
-                    <div class="pill">⚡ RÁPIDO COMO EL RAYO</div>
-                    <div class="pill">🛡️ 100% ANTIBAN</div>
-                    <div class="pill">🔒 SIN MAMADAS</div>
-                </div>
+                <span>Pocoyito & Vex</span>
             </div>
+            <a href="https://discord.gg/CP3ZM8AmTt" target="_blank" class="btn-nav-discord">
+                <svg class="discord-svg" viewBox="0 0 127.14 96.36">
+                    <path d="M107.7,8.07A105.15,105.15,0,0,0,81.47,0a72.06,72.06,0,0,0-3.36,6.83A97.68,97.68,0,0,0,49,6.83,72.37,72.37,0,0,0,45.64,0,105.89,105.89,0,0,0,19.39,8.09C2.79,32.65-1.71,56.6.54,80.21h0A105.73,105.73,0,0,0,32.71,96.36,77.7,77.7,0,0,0,39.6,85.25a68.42,68.42,0,0,1-10.85-5.18c.91-.66,1.8-1.34,2.66-2a73.51,73.51,0,0,0,64.3,0c.87.71,1.76,1.39,2.66,2a68.68,68.68,0,0,1-10.87,5.19,77,77,0,0,0,6.89,11.1,105.25,105.25,0,0,0,32.19-16.14c2.64-27.38-4.51-51.11-18.88-72.15ZM42.45,65.69C36.18,65.69,31,60,31,53s5-12.74,11.43-12.74C48.86,40.23,54,45.92,53.86,53,53.86,60,48.78,65.69,42.45,65.69Zm42.24,0C78.41,65.69,73.25,60,73.25,53s5-12.74,11.44-12.74C91.13,40.23,96.28,45.92,96.14,53,96.14,60,91.06,65.69,84.69,65.69Z"/>
+                </svg>
+                Caile al Discord
+            </a>
+        </header>
 
-            <!-- Status Badge -->
-            <div class="status-badge">
-                <div class="status-dot"></div>
-                Bots al 100% Chambeando sin Descanso
+        <!-- Hero Banner Card -->
+        <div class="hero-card">
+            <div class="hero-icon-large">
+                <img src="https://static.wikia.nocookie.net/roblox/images/6/66/Audio_Icon_2024.png" alt="Roblox Audio Icon 2024">
             </div>
-
-            <!-- Main Title & Description -->
-            <h2 class="main-headline">
-                Pasa tus rolas a Roblox sin que te las tiren usando <span class="highlight-cmd">/bypass_basico</span>
-            </h2>
-
-            <p class="description-text">
-                ¡Caile a <b>Pocoyito Studios & Vex Studios</b> y deja de sufrir por los baneos de audio! Solo suelta tu rola con comandos como <span class="command-box">/aplicar_metodo [archivo]</span> y deja que 
-                <span class="bot-p1">POCOYITO</span>, 
-                <span class="bot-p2">POCOYITO II</span>, 
-                <span class="bot-vx">VEX</span> y el pinche 
-                <span class="bot-jn">JUANITO ESCLAVO</span> hagan la magia en caliente.
-            </p>
-
-            <!-- Recuadro informativo -->
-            <div class="extra-info">
-                🔥 <b>¡Y no salgas con que 'nomás esos existen'!</b> Tenemos un chingamadral de métodos repartidos en todos los bots que ya ni nosotros sabemos cuántos son, con comandos bélicos como <span class="command-box">/10capas</span>, <span class="command-box">/byte_shadow</span>, <span class="command-box">/tecnico</span>, <span class="command-box">/guerra</span> y un chingo más para violarte el filtro de Roblox.
-            </div>
-
-            <!-- Action Button Único -->
-            <div class="action-buttons">
-                <a href="https://discord.gg/CP3ZM8AmTt" target="_blank" class="btn-primary">
-                    <svg class="discord-svg" viewBox="0 0 127.14 96.36">
-                        <path d="M107.7,8.07A105.15,105.15,0,0,0,81.47,0a72.06,72.06,0,0,0-3.36,6.83A97.68,97.68,0,0,0,49,6.83,72.37,72.37,0,0,0,45.64,0,105.89,105.89,0,0,0,19.39,8.09C2.79,32.65-1.71,56.6.54,80.21h0A105.73,105.73,0,0,0,32.71,96.36,77.7,77.7,0,0,0,39.6,85.25a68.42,68.42,0,0,1-10.85-5.18c.91-.66,1.8-1.34,2.66-2a73.51,73.51,0,0,0,64.3,0c.87.71,1.76,1.39,2.66,2a68.68,68.68,0,0,1-10.87,5.19,77,77,0,0,0,6.89,11.1,105.25,105.25,0,0,0,32.19-16.14c2.64-27.38-4.51-51.11-18.88-72.15ZM42.45,65.69C36.18,65.69,31,60,31,53s5-12.74,11.43-12.74C48.86,40.23,54,45.92,53.86,53,53.86,60,48.78,65.69,42.45,65.69Zm42.24,0C78.41,65.69,73.25,60,73.25,53s5-12.74,11.44-12.74C91.13,40.23,96.28,45.92,96.14,53,96.14,60,91.06,65.69,84.69,65.69Z"/>
-                    </svg>
-                    ¡CAILE AL SERVIDOR DE DISCORD!
-                </a>
+            <h1 class="hero-title">Pocoyito & Vex</h1>
+            <div class="hero-subtitle">STUDIOS BYPASSING</div>
+            <div class="pills-group">
+                <div class="pill">⚡ RÁPIDO COMO EL RAYO</div>
+                <div class="pill">🛡️ 100% ANTIBAN</div>
+                <div class="pill">🔒 SIN MAMADAS</div>
             </div>
         </div>
 
-        <!-- Script de Partículas + Cursor/Rastro Táctil interactivo -->
-        <script>
-            const canvas = document.getElementById('canvas-bg');
-            const ctx = canvas.getContext('2d');
+        <!-- Status Badge -->
+        <div class="status-badge">
+            <div class="status-dot"></div>
+            Bots al 100% Chambeando sin Descanso
+        </div>
 
-            let width, height;
-            function resize() {
-                width = canvas.width = window.innerWidth;
-                height = canvas.height = window.innerHeight;
-            }
-            window.addEventListener('resize', resize);
-            resize();
+        <!-- Main Title & Description -->
+        <h2 class="main-headline">
+            Pasa tus rolas a Roblox sin que te las tiren usando <span class="highlight-cmd">/bypass_basico</span>
+        </h2>
 
-            // Partículas flotantes de fondo
-            const particles = [];
-            for (let i = 0; i < 45; i++) {
-                particles.push({
-                    x: Math.random() * width,
-                    y: Math.random() * height,
-                    radius: Math.random() * 2 + 0.5,
-                    vx: (Math.random() - 0.5) * 0.4,
-                    vy: (Math.random() - 0.5) * 0.4,
-                    alpha: Math.random() * 0.5 + 0.2
-                });
-            }
+        <p class="description-text">
+            ¡Caile a <b>Pocoyito Studios & Vex Studios</b> y deja de sufrir por los baneos de audio! Solo suelta tu rola con comandos como <span class="command-box">/aplicar_metodo [archivo]</span> y deja que 
+            <span class="bot-p1">POCOYITO</span>, 
+            <span class="bot-p2">POCOYITO II</span>, 
+            <span class="bot-vx">VEX</span> y el pinche 
+            <span class="bot-jn">JUANITO ESCLAVO</span> hagan la magia en caliente.
+        </p>
 
-            // Rastro táctil / Mouse
-            const trail = [];
-            const maxTrail = 12;
-            let mouse = { x: -100, y: -100 };
+        <!-- Recuadro informativo -->
+        <div class="extra-info">
+            🔥 <b>¡Y no salgas con que 'nomás esos existen'!</b> Tenemos un chingamadral de métodos repartidos en todos los bots que ya ni nosotros sabemos cuántos son, con comandos bélicos como <span class="command-box">/10capas</span>, <span class="command-box">/byte_shadow</span>, <span class="command-box">/tecnico</span>, <span class="command-box">/guerra</span> y un chingo más para violarte el filtro de Roblox.
+        </div>
 
-            function updatePos(x, y) {
-                mouse.x = x;
-                mouse.y = y;
-                trail.push({ x: x, y: y, alpha: 1, radius: 12 });
-                if (trail.length > maxTrail) trail.shift();
-            }
+        <!-- Action Button Único -->
+        <div class="action-buttons">
+            <a href="https://discord.gg/CP3ZM8AmTt" target="_blank" class="btn-primary">
+                <svg class="discord-svg" viewBox="0 0 127.14 96.36">
+                    <path d="M107.7,8.07A105.15,105.15,0,0,0,81.47,0a72.06,72.06,0,0,0-3.36,6.83A97.68,97.68,0,0,0,49,6.83,72.37,72.37,0,0,0,45.64,0,105.89,105.89,0,0,0,19.39,8.09C2.79,32.65-1.71,56.6.54,80.21h0A105.73,105.73,0,0,0,32.71,96.36,77.7,77.7,0,0,0,39.6,85.25a68.42,68.42,0,0,1-10.85-5.18c.91-.66,1.8-1.34,2.66-2a73.51,73.51,0,0,0,64.3,0c.87.71,1.76,1.39,2.66,2a68.68,68.68,0,0,1-10.87,5.19,77,77,0,0,0,6.89,11.1,105.25,105.25,0,0,0,32.19-16.14c2.64-27.38-4.51-51.11-18.88-72.15ZM42.45,65.69C36.18,65.69,31,60,31,53s5-12.74,11.43-12.74C48.86,40.23,54,45.92,53.86,53,53.86,60,48.78,65.69,42.45,65.69Zm42.24,0C78.41,65.69,73.25,60,73.25,53s5-12.74,11.44-12.74C91.13,40.23,96.28,45.92,96.14,53,96.14,60,91.06,65.69,84.69,65.69Z"/>
+                </svg>
+                ¡CAILE AL SERVIDOR DE DISCORD!
+            </a>
+        </div>
+    </div>
 
-            window.addEventListener('mousemove', (e) => updatePos(e.clientX, e.clientY));
-            window.addEventListener('touchmove', (e) => {
-                if (e.touches.length > 0) {
-                    updatePos(e.touches[0].clientX, e.touches[0].clientY);
-                }
+    <!-- Script de Partículas + Cursor/Rastro Táctil interactivo -->
+    <script>
+        const canvas = document.getElementById('canvas-bg');
+        const ctx = canvas.getContext('2d');
+
+        let width, height;
+        function resize() {
+            width = canvas.width = window.innerWidth;
+            height = canvas.height = window.innerHeight;
+        }
+        window.addEventListener('resize', resize);
+        resize();
+
+        // Partículas flotantes de fondo
+        const particles = [];
+        for (let i = 0; i < 45; i++) {
+            particles.push({
+                x: Math.random() * width,
+                y: Math.random() * height,
+                radius: Math.random() * 2 + 0.5,
+                vx: (Math.random() - 0.5) * 0.4,
+                vy: (Math.random() - 0.5) * 0.4,
+                alpha: Math.random() * 0.5 + 0.2
             });
+        }
 
-            function animate() {
-                ctx.clearRect(0, 0, width, height);
+        // Rastro táctil / Mouse
+        const trail = [];
+        const maxTrail = 12;
+        let mouse = { x: -100, y: -100 };
 
-                // Dibujar Partículas
-                for (let p of particles) {
-                    p.x += p.vx;
-                    p.y += p.vy;
+        function updatePos(x, y) {
+            mouse.x = x;
+            mouse.y = y;
+            trail.push({ x: x, y: y, alpha: 1, radius: 12 });
+            if (trail.length > maxTrail) trail.shift();
+        }
 
-                    if (p.x < 0) p.x = width;
-                    if (p.x > width) p.x = 0;
-                    if (p.y < 0) p.y = height;
-                    if (p.y > height) p.y = 0;
+        window.addEventListener('mousemove', (e) => updatePos(e.clientX, e.clientY));
+        window.addEventListener('touchmove', (e) => {
+            if (e.touches.length > 0) {
+                updatePos(e.touches[0].clientX, e.touches[0].clientY);
+            }
+        });
 
-                    ctx.beginPath();
-                    ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
-                    ctx.fillStyle = `rgba(0, 212, 255, ${p.alpha})`;
-                    ctx.shadowBlur = 10;
-                    ctx.shadowColor = '#00d4ff';
-                    ctx.fill();
-                }
+        function animate() {
+            ctx.clearRect(0, 0, width, height);
 
-                // Dibujar Rastro Táctil
-                for (let i = 0; i < trail.length; i++) {
-                    let point = trail[i];
-                    point.alpha -= 0.05;
-                    point.radius *= 0.92;
+            // Dibujar Partículas
+            for (let p of particles) {
+                p.x += p.vx;
+                p.y += p.vy;
 
-                    if (point.alpha > 0) {
-                        ctx.beginPath();
-                        ctx.arc(point.x, point.y, Math.max(1, point.radius), 0, Math.PI * 2);
-                        ctx.fillStyle = `rgba(0, 212, 255, ${point.alpha})`;
-                        ctx.shadowBlur = 15;
-                        ctx.shadowColor = '#00d4ff';
-                        ctx.fill();
-                    }
-                }
+                if (p.x < 0) p.x = width;
+                if (p.x > width) p.x = 0;
+                if (p.y < 0) p.y = height;
+                if (p.y > height) p.y = 0;
 
-                // Círculo principal del cursor
-                if (mouse.x > 0 && mouse.y > 0) {
-                    ctx.beginPath();
-                    ctx.arc(mouse.x, mouse.y, 8, 0, Math.PI * 2);
-                    ctx.fillStyle = '#ffffff';
-                    ctx.shadowBlur = 20;
-                    ctx.shadowColor = '#00d4ff';
-                    ctx.fill();
-                }
-
-                requestAnimationFrame(animate);
+                ctx.beginPath();
+                ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
+                ctx.fillStyle = `rgba(0, 212, 255, ${p.alpha})`;
+                ctx.shadowBlur = 10;
+                ctx.shadowColor = '#00d4ff';
+                ctx.fill();
             }
 
-            animate();
-        </script>
-    </body>
-    </html>
-    """
+            // Dibujar Rastro Táctil
+            for (let i = 0; i < trail.length; i++) {
+                let point = trail[i];
+                point.alpha -= 0.05;
+                point.radius *= 0.92;
+
+                if (point.alpha > 0) {
+                    ctx.beginPath();
+                    ctx.arc(point.x, point.y, Math.max(1, point.radius), 0, Math.PI * 2);
+                    ctx.fillStyle = `rgba(0, 212, 255, ${point.alpha})`;
+                    ctx.shadowBlur = 15;
+                    ctx.shadowColor = '#00d4ff';
+                    ctx.fill();
+                }
+            }
+
+            // Círculo principal del cursor
+            if (mouse.x > 0 && mouse.y > 0) {
+                ctx.beginPath();
+                ctx.arc(mouse.x, mouse.y, 8, 0, Math.PI * 2);
+                ctx.fillStyle = '#ffffff';
+                ctx.shadowBlur = 20;
+                ctx.shadowColor = '#00d4ff';
+                ctx.fill();
+            }
+
+            requestAnimationFrame(animate);
+        }
+
+        animate();
+    </script>
+</body>
+</html>
